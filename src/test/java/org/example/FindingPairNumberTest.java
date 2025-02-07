@@ -13,7 +13,6 @@ class FindingPairNumberTest {
     @Test
     @DisplayName("Find Pair Number")
     void testFindPairNumber(){
-        int[] resultFindPairNumber = FindingPairNumber.findPairNumber(new int[] {2,7,11,15}, 9);
-        assertEquals("[0, 1]", Arrays.toString(resultFindPairNumber));
+        assertEquals("[0, 1]", FindingPairNumber.findPairNumber(new int[] {2,7,11,15}, 9));
     }
 }

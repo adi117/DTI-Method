@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 public class FindingPairNumber {
 
-    public static int[] findPairNumber(int[] numberList, int target){
+    public static String findPairNumber(int[] numberList, int target){
 
         int[] pairNumber = new int[2];
 
@@ -14,12 +14,12 @@ public class FindingPairNumber {
                 if (numberList[i] + numberList[j] == target){
                     pairNumber[0] = i;
                     pairNumber[1] = j;
-                    break;
+                    return Arrays.toString(pairNumber);
                 }
             }
         }
 
-        return pairNumber;
+        return "No pair exist";
 
     }
 
