@@ -12,24 +12,33 @@ public class FindWordMiniGame {
     private static StringBuilder hiddenWord = new StringBuilder();
     private static int charCorrect = 0;
     private static int playerAttemptsLeft = 10;
-    private static int playerAttempt;
+    private static int playerAttempt = 0;
+    private static String word;
 
     public static void gameStart(){
-        String word = selectRandomWord();
+        word = selectRandomWord();
         hideWord(word);
-        System.out.println("Your word today is : " + hiddenWord + " || " + "You only have " + playerAttemptsLeft + " attempts");
+        System.out.println("Your word today is : " + hiddenWord + " || " + "You only have " + playerAttemptsLeft + " attempts!");
 
         do {
+
+            if (charCorrect == word.length()){
+                isWordGuessed = true;
+            }
+
             getPlayerGuess();
+
+            ++playerAttempt;
 
             if (isGuessCorrect(word, playerGuessChar)){
                 System.out.println("Your guess is correct! || " + "Your remaining attempts : " + playerAttemptsLeft + " attempts");
             } else {
-                System.out.println("Try again! || " + "Your remaining attempts : " + playerAttemptsLeft + " attempts");
-            }
-
-            if (charCorrect == word.length()){
-                isWordGuessed = true;
+                if (playerAttemptsLeft == 1){
+                    break;
+                } else {
+                    --playerAttemptsLeft;
+                    System.out.println("Try again! || " + "Your remaining attempts : " + playerAttemptsLeft + " attempts");
+                }
             }
 
             System.out.println("Your word : " + hiddenWord);
@@ -58,11 +67,11 @@ public class FindWordMiniGame {
             }
         }
 
-        double hintIndex = Math.random()*arrayWord.length;
+        double hintIndex = Math.random() * arrayWord.length;
 
         do {
             if (arrayWord[(int) hintIndex].equals(" ")){
-                hintIndex = Math.random()*arrayWord.length;
+                hintIndex = Math.random() * arrayWord.length;
             } else {
                 break;
             }
@@ -75,27 +84,24 @@ public class FindWordMiniGame {
 
     private static char getPlayerGuess(){
         System.out.print("Guess the word : ");
-        --playerAttemptsLeft;
-        ++playerAttempt;
         return playerGuessChar = scanner.next().charAt(0);
     }
 
     private static boolean isGuessCorrect(String word, char guess){
+
+        int correctGuessDetected = 0;
 
         char[] wordCharArray = word.toCharArray();
 
         for (int i = 0; i < wordCharArray.length; i++){
             if (wordCharArray[i] == guess){
                 updateHiddenWord(hiddenWord, i, guess);
-                charCorrect += 1;
+                ++charCorrect;
+                ++correctGuessDetected;
             }
         }
 
-        if (charCorrect > 0){
-            return true;
-        }
-
-        return false;
+        return correctGuessDetected > 0;
 
     }
 
@@ -104,7 +110,11 @@ public class FindWordMiniGame {
     }
 
     public static void displayGameResult(){
-        System.out.println("Congratulation! You guessed the word : " + hiddenWord + " with " + playerAttempt + " attempts!");
+        if (isWordGuessed){
+            System.out.println("Congratulation! You guessed the word : " + word + " with " + playerAttempt + " attempts!");
+        } else {
+            System.out.println("Your attempts already run out. Your word is : " + word);
+        }
     }
 
 }
