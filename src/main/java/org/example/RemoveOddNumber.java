@@ -1,19 +1,21 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class RemoveOddNumber {
 
-    public static void oddNumberRemover(int[] numberList){
+    public static int[] oddNumberRemover(int[] numberList){
         String[] indexEvenNumber = findEvenNumber(numberList).split("");
 
-        StringBuilder evenNumber = new StringBuilder();
+        ArrayList<Integer> evenNumber = new ArrayList<>();
+//        StringBuilder evenNumber = new StringBuilder();
 
         for (String number : indexEvenNumber){
-            evenNumber.append(numberList[Integer.parseInt(number)]);
+            evenNumber.add(numberList[Integer.parseInt(number)]);
         }
 
-        System.out.println(evenNumber);
+        return evenNumber.stream().mapToInt(Integer::intValue).toArray();
     }
 
     private static String findEvenNumber(int[] numberList){

@@ -59,8 +59,8 @@ public class FindWordMiniGame {
 
         String[] arrayWord = word.split("");
 
-        for (int i = 0; i < arrayWord.length; i++){
-            if (arrayWord[i].equals(" ")){
+        for (String s : arrayWord) {
+            if (s.equals(" ")) {
                 hiddenWord.append(" ");
             } else {
                 hiddenWord.append("_");
